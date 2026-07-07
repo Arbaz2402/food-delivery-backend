@@ -3,9 +3,44 @@ const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 const cors = require('cors');
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 const connectDB = require('./config/database');
 const errorHandler = require('./middleware/error');
 const { setSocketIO } = require('./controllers/orders');
+
+// Swagger configuration
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Food Delivery API',
+      version: '1.0.0',
+      description: 'API for food delivery application',
+    },
+    servers: [
+      {
+        url: 'https://food-delivery-backend-w4lt.onrender.com',
+        description: 'Production server on Render',
+      },
+      {
+        url: 'http://localhost:5001',
+        description: 'Local development server',
+      },
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+  },
+  apis: ['./routes/*.js'], // files containing annotations as above
+};
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
 
 connectDB();
 
@@ -34,6 +69,9 @@ io.on('connection', (socket) => {
 });
 
 setSocketIO(io);
+
+// Swagger UI route
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/restaurants', restaurants);
