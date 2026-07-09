@@ -138,9 +138,9 @@ router.route('/:id').get(protect, getOrder);
  *               - status
  *             properties:
  *               status:
- *                 type: string
- *                 enum: [pending, confirmed, preparing, ready, out_for_delivery, delivered, cancelled]
- *                 example: preparing
+                 type: string
+                 enum: [pending, confirmed, preparing, ready-for-pickup, out-for-delivery, delivered, cancelled]
+                 example: preparing
  *     responses:
  *       200:
  *         description: Order status updated (emits socket event)

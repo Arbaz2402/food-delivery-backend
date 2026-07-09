@@ -65,9 +65,9 @@ const router = express.Router({ mergeParams: true });
  *               description:
  *                 type: string
  *                 example: Classic pizza with tomato and cheese
- *               available:
- *                 type: boolean
- *                 example: true
+ *               isAvailable:
+                 type: boolean
+                 example: true
  *     responses:
  *       201:
  *         description: Menu item created

@@ -44,10 +44,10 @@ const router = express.Router();
  *                 description: User's password (min 6 characters)
  *                 example: password123
  *               role:
- *                 type: string
- *                 enum: [customer, restaurant_owner, delivery_person]
- *                 description: User's role
- *                 example: customer
+                 type: string
+                 enum: [customer, restaurant, delivery, admin]
+                 description: User's role
+                 example: customer
  *     responses:
  *       201:
  *         description: User registered successfully
